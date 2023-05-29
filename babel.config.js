@@ -6,17 +6,7 @@ module.exports = {
       {
         cwd: 'babelrc',
         root: ['.'],
-        extensions: [
-          '.ios.ts',
-          '.android.ts',
-          '.ts',
-          '.ios.tsx',
-          '.android.tsx',
-          '.tsx',
-          '.jsx',
-          '.js',
-          '.json',
-        ],
+        extensions: ['.js', '.ios.js', '.android.js', '.ts', '.tsx'],
         alias: {
           '~': './src',
           '@components': './src/components',
