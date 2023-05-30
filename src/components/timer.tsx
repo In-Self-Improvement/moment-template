@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import useTimer from '~/hooks/timer';
+import useTimer from '~/hooks/useTimer';
 
 interface Props {}
 
