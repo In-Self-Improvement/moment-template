@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import Timer from '@components/timer';
 
 interface Props {}
 
-const MomentScreen = ({}: Props) => {
+const MomentScreen: React.FC = ({}: Props) => {
   const styles = createStyles();
-  // const [viewIndex, setViewIndex] = useState<number>(0);
   return (
     <View style={styles.container}>
-      <Text style={styles.time}>Hello World</Text>
+      <Timer />
     </View>
   );
 };
