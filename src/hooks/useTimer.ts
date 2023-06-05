@@ -34,7 +34,10 @@ const useTimer = (duration: number) => {
     const exceededTime = elapsedTime - duration;
 
     if (remainingTime < 0) {
-      return '+' + formatTimeInSeconds(exceededTime);
+      // 타이머 업카운팅
+      // return '+' + formatTimeInSeconds(exceededTime);
+      stop();
+      return 'end';
     } else {
       return formatTimeInSeconds(remainingTime);
     }
