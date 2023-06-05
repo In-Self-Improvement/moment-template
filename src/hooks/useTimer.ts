@@ -3,15 +3,25 @@ const moment = require('moment/min/moment-with-locales');
 
 const useTimer = (duration: number) => {
   const timerRef = useRef<number | null>(null);
-  const [endTime, setEndTime] = useState(moment());
+  // const [endTime, setEndTime] = useState(moment());
+  const [isInProcess, setProcessStatus] = useState<boolean>(false);
   const [elapsedTime, setElapsedTime] = useState(0);
 
+  const updateTimer = () => {
+    timerRef.current = setTimeout(() => {
+      setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+    }, 1000);
+  };
+
   const start = () => {
-    setEndTime(moment().add(duration, 'second'));
+    updateTimer();
+    setProcessStatus(true);
   };
 
   const restart = () => {
-    setEndTime(moment().add(duration, 'second'));
+    setElapsedTime(0);
+    updateTimer();
+    setProcessStatus(true);
   };
 
   const pause = () => {
@@ -49,20 +59,16 @@ const useTimer = (duration: number) => {
   };
 
   useEffect(() => {
-    const updateTimer = () => {
-      timerRef.current = setTimeout(() => {
-        setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
-      }, 1000);
-    };
-    updateTimer();
-
+    if (isInProcess) {
+      updateTimer();
+    }
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
         timerRef.current = null;
       }
     };
-  }, [elapsedTime]);
+  }, [elapsedTime, isInProcess]);
 
   return {
     time: currentTime(),
