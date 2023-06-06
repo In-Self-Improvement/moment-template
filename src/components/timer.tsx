@@ -6,8 +6,13 @@ interface Props {}
 
 const Timer = ({}: Props) => {
   const styles = useStyles();
+<<<<<<< Updated upstream:src/components/timer.tsx
   const timer = useTimer(4);
 
+=======
+  const timer = useTimer(60);
+  const isOver = timer.time === 'end';
+>>>>>>> Stashed changes:src/components/Timer.tsx
   useEffect(() => {
     timer.start();
     return () => {
