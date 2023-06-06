@@ -68,7 +68,7 @@ const useTimer = (duration: number) => {
         timerRef.current = null;
       }
     };
-  }, [elapsedTime, isInProcess]);
+  }, [isInProcess]);
 
   return {
     time: currentTime(),

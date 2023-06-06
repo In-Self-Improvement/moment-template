@@ -13,24 +13,19 @@ const Timer = ({}: Props) => {
       timer.stop();
     };
   }, []);
-
+  const start = () => {
+    timer.start();
+  };
+  const restart = () => {
+    timer.restart();
+  };
   return (
     <View>
       <Text style={styles.timeText}>{timer.time}</Text>
       {isOver ? (
-        <Button
-          onPressButton={() => {
-            timer.restart();
-          }}
-          buttonText="다시 시작!"
-        />
+        <Button onPressButton={restart} buttonText="다시 시작!" />
       ) : (
-        <Button
-          onPressButton={() => {
-            timer.start();
-          }}
-          buttonText="시작!"
-        />
+        <Button onPressButton={start} buttonText="시작!" />
       )}
     </View>
   );
