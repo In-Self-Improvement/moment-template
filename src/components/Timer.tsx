@@ -23,9 +23,9 @@ const Timer = ({}: Props) => {
     <View>
       <Text style={styles.timeText}>{timer.time}</Text>
       {isOver ? (
-        <Button onPressButton={restart} buttonText="다시 시작!" />
+        <Button onPressButton={restart}>다시시작!</Button>
       ) : (
-        <Button onPressButton={start} buttonText="시작!" />
+        <Button onPressButton={start}>시작!</Button>
       )}
     </View>
   );

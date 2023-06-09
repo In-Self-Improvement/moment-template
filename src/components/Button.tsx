@@ -2,17 +2,17 @@ import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 interface Props {
+  children: React.ReactNode;
   onPressButton: () => void;
-  buttonText: string;
 }
 
-const Button = ({onPressButton, buttonText}: Props) => {
+const Button = ({onPressButton, children}: Props) => {
   const styles = useStyles();
 
   return (
     <View>
       <TouchableHighlight style={styles.startBtn} onPress={onPressButton}>
-        <Text style={styles.startText}>{buttonText}</Text>
+        <Text style={styles.startText}>{children}</Text>
       </TouchableHighlight>
     </View>
   );
