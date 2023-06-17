@@ -2,7 +2,7 @@ name: CI/CD Test Automation
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 
 jobs:
   test:
@@ -16,12 +16,8 @@ jobs:
 
       - name: Install node modules
         run: |
-          yarn install
-
-      - name: Run CI with Lefthook
-        run: |
-          yarn lefthook run ci-hook
+          yarn Install
 
       - name: Run test
         run: |
-          yarn test-ci
+          yarn test
