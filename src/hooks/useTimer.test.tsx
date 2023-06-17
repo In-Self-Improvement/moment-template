@@ -26,8 +26,11 @@ describe('useTimer', () => {
     act(() => {
       jest.advanceTimersByTime(1000); // 1초 경과
     });
+    act(() => {
+      jest.advanceTimersByTime(1000); // 1초 경과
+    });
 
-    expect(result.current.time).toBe('00:00:59');
+    expect(result.current.time).toBe('00:00:58');
   });
 
   test('should restart the timer', () => {
