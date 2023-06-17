@@ -1,4 +1,4 @@
-name: CI/CD Test Automation
+name: Test Automation
 
 on:
   pull_request:
@@ -16,7 +16,7 @@ jobs:
 
       - name: Install node modules
         run: |
-          yarn Install
+          yarn
 
       - name: Run test
         run: |
