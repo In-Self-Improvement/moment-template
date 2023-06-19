@@ -8,6 +8,8 @@ const Timer = ({}: Props) => {
   const styles = useStyles();
   const timer = useTimer(4);
   const isOver = timer.time === 'end';
+
+  const isProgress = timer.isInProcess;
   useEffect(() => {
     return () => {
       timer.stop();
@@ -23,7 +25,13 @@ const Timer = ({}: Props) => {
     <View>
       <Text style={styles.timeText}>{timer.time}</Text>
       {isOver ? (
-        <Button onPressButton={restart}>다시시작!</Button>
+        <Button onPressButton={restart} backgroundColor="blue">
+          다시시작!
+        </Button>
+      ) : isProgress ? (
+        <Button onPressButton={start} backgroundColor="red">
+          일시정지~
+        </Button>
       ) : (
         <Button onPressButton={start}>시작!</Button>
       )}

@@ -4,10 +4,11 @@ import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 interface Props {
   children: React.ReactNode;
   onPressButton: () => void;
+  backgroundColor?: string;
 }
 
-const Button = ({onPressButton, children}: Props) => {
-  const styles = useStyles();
+const Button = ({onPressButton, children, backgroundColor}: Props) => {
+  const styles = useStyles(backgroundColor);
 
   return (
     <View>
@@ -20,7 +21,7 @@ const Button = ({onPressButton, children}: Props) => {
 
 export default Button;
 
-const useStyles = () =>
+const useStyles = (backgroundColor: string | undefined) =>
   StyleSheet.create({
     startBtn: {
       alignSelf: 'center',
@@ -28,7 +29,7 @@ const useStyles = () =>
       justifyContent: 'center',
       width: 120,
       height: 40,
-      backgroundColor: 'black',
+      backgroundColor: backgroundColor ? backgroundColor : 'black',
       borderRadius: 10,
     },
     startText: {

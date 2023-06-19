@@ -7,7 +7,6 @@ const useTimer = (duration: number) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [previousTime, setPreviousTime] = useState(Date.now());
   const [totalElapsedTime, setTotalElapsedTime] = useState(0);
-
   const updateTimer = () => {
     const currentTime = Date.now();
     const elapsedMilliseconds = currentTime - previousTime;
@@ -17,7 +16,6 @@ const useTimer = (duration: number) => {
       setTotalElapsedTime(totalElapsedTime + elapsedSeconds);
       setPreviousTime(currentTime);
     }
-    timerRef.current = requestAnimationFrame(updateTimer);
   };
 
   const start = () => {
@@ -26,10 +24,10 @@ const useTimer = (duration: number) => {
   };
 
   const restart = () => {
-    setElapsedTime(0);
-    setTotalElapsedTime(0);
-    setPreviousTime(Date.now());
-    setProcessStatus(true);
+    reset();
+    setTimeout(() => {
+      start();
+    }, 1000);
   };
 
   const pause = () => {
@@ -88,6 +86,7 @@ const useTimer = (duration: number) => {
     pause,
     reset,
     stop,
+    isInProcess,
   };
 };
 
