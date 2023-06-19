@@ -3,49 +3,57 @@ const moment = require('moment/min/moment-with-locales');
 
 const useTimer = (duration: number) => {
   const timerRef = useRef<number | null>(null);
-  // const [endTime, setEndTime] = useState(moment());
   const [isInProcess, setProcessStatus] = useState<boolean>(false);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [previousTime, setPreviousTime] = useState(Date.now());
+  const [totalElapsedTime, setTotalElapsedTime] = useState(0);
 
   const updateTimer = () => {
-    timerRef.current = setTimeout(() => {
-      setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
-    }, 1000);
+    const currentTime = Date.now();
+    const elapsedMilliseconds = currentTime - previousTime;
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+    if (elapsedMilliseconds >= 100) {
+      setElapsedTime(elapsedTime + elapsedSeconds);
+      setTotalElapsedTime(totalElapsedTime + elapsedSeconds);
+      setPreviousTime(currentTime);
+    }
+    timerRef.current = requestAnimationFrame(updateTimer);
   };
 
   const start = () => {
-    updateTimer();
+    setPreviousTime(Date.now());
     setProcessStatus(true);
   };
 
   const restart = () => {
     setElapsedTime(0);
-    updateTimer();
+    setTotalElapsedTime(0);
+    setPreviousTime(Date.now());
     setProcessStatus(true);
   };
 
   const pause = () => {
-    // pause TODO
+    setProcessStatus(false);
   };
 
   const reset = () => {
-    // reset TODO
+    setElapsedTime(0);
+    setTotalElapsedTime(0);
+    setProcessStatus(false);
   };
 
   const stop = () => {
     if (timerRef.current) {
-      clearInterval(timerRef.current);
+      cancelAnimationFrame(timerRef.current);
       timerRef.current = null;
     }
   };
 
   const currentTime = (): string => {
-    const remainingTime = duration - elapsedTime;
-    const exceededTime = elapsedTime - duration;
+    const remainingTime = duration - totalElapsedTime;
+    const exceededTime = totalElapsedTime - duration;
 
     if (remainingTime < 0) {
-      // 타이머 업카운팅
-      // return '+' + formatTimeInSeconds(exceededTime);
       stop();
       return 'end';
     } else {
@@ -63,12 +71,15 @@ const useTimer = (duration: number) => {
       updateTimer();
     }
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
+      stop();
     };
-  }, [isInProcess, elapsedTime]);
+  }, [isInProcess]);
+
+  useEffect(() => {
+    if (isInProcess) {
+      setPreviousTime(Date.now());
+    }
+  }, [elapsedTime]);
 
   return {
     time: currentTime(),
