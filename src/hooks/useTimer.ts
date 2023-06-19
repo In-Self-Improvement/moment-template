@@ -12,9 +12,11 @@ const useTimer = (duration: number) => {
     const currentTime = Date.now();
     const elapsedMilliseconds = currentTime - previousTime;
     const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    setElapsedTime(elapsedTime + elapsedSeconds);
-    setTotalElapsedTime(totalElapsedTime + elapsedSeconds);
-    setPreviousTime(currentTime);
+    if (elapsedMilliseconds >= 100) {
+      setElapsedTime(elapsedTime + elapsedSeconds);
+      setTotalElapsedTime(totalElapsedTime + elapsedSeconds);
+      setPreviousTime(currentTime);
+    }
     timerRef.current = requestAnimationFrame(updateTimer);
   };
 
@@ -50,7 +52,6 @@ const useTimer = (duration: number) => {
   const currentTime = (): string => {
     const remainingTime = duration - totalElapsedTime;
     const exceededTime = totalElapsedTime - duration;
-    console.log('remainingTime', remainingTime);
 
     if (remainingTime < 0) {
       stop();
